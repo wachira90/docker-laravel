@@ -29,6 +29,37 @@ http://localhost:8083/
 
 ## nginx config
 
+
+```
+location / {
+   proxy_pass http://10.104.3.29:8081;
+   # proxy_set_header Host $host;
+   proxy_set_header Host $http_host;
+   proxy_set_header X-Forwarded-Proto $scheme;
+   proxy_set_header X-Real-IP $remote_addr;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+
+## V 2 dbadmin
+
+```
+location / {
+    proxy_buffers 8 8k;
+    proxy_buffer_size 8k;
+    proxy_pass http://localhost:8009/;
+    proxy_set_header Host $host;
+    proxy_buffering on;
+    proxy_cache_valid 200  1d;
+    proxy_cache_use_stale  error timeout invalid_header updating http_500 http_502 http_503 http_504;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+## nginx
+
 ```
 server {
    charset utf-8;
