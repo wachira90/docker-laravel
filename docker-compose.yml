@@ -3,6 +3,7 @@ services:
     # image: public.ecr.aws/docker/library/php:8.1-fpm
     image: docker.io/wachiradu/php:8.2.7-fpm-foodking-v3
     container_name: app
+    restart: unless-stopped
     environment:
       TZ: "Asia/Bangkok"
     working_dir: /var/www
@@ -15,6 +16,7 @@ services:
   web:
     image: public.ecr.aws/nginx/nginx:1.27.0
     container_name: web
+    restart: unless-stopped
     environment:
       TZ: "Asia/Bangkok"    
     depends_on:
@@ -65,7 +67,3 @@ services:
 networks:
   laravel:
     driver: bridge
-
-# volumes:
-#   dbdata:
-#     driver: local
