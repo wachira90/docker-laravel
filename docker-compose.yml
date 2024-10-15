@@ -63,6 +63,16 @@ services:
     networks:
       - laravel
 
+  redis725:
+    container_name: redis725
+    image: public.ecr.aws/docker/library/redis:7.2.5
+    restart: unless-stopped
+    # ports:
+    #   - 6379:6379
+    volumes:
+      - ./redis-data/:/data/:rw
+    networks:
+      - laravel
 
 networks:
   laravel:
